@@ -1,0 +1,37 @@
+ifconfig          # Show network info
+ip a              # Same, more detailed
+ping google.com   # Ping a website
+traceroute google.com # Trace route to Google
+tracepath google.com  # Alternative to traceroute
+netstat -tunlp    # List ports and programs
+ss -tunlp         # New version of netstat
+dig google.com    # DNS lookup for google.com
+nslookup google.com  # Same, in a different style
+route -n          # Show routing table
+host google.com   # Resolve domain to IP
+arp -a            # Show ARP table
+hostname          # Show computer name
+curl google.com   # Download page HTML
+wget google.com   # Download page HTML (alternative)
+mtr google.com    # Live network path check
+whois google.com  # Get domain ownership info
+tcpdump -i any    # Start packet capture (needs sudo)
+
+1) ifconfig : The ifconfig command in Linux is a command-line tool that configures, controls, and queries network interface parameters 
+2) Ip : In Linux, the ip command is a tool for network management that allows users to configure and manage network interfaces, IP addresses, and routing tables
+3) Traceroute : The traceroute command in Linux is a tool that shows the path a packet takes from your computer to a destination on the internet 
+4) Tracepath : The tracepath command in Linux is a network diagnostic tool that traces the path a packet takes from a local host to a remote host 
+5) Ping :The ping command in Linux is a networking utility that tests connectivity, reachability, and name resolution. The syntax for the ping command is: ping [options]
+[hostname/IP address and ping -f destination 
+6) Netstat : The netstat command in Linux is a command-line tool that displays network statistics and is used for troubleshooting and configuring networks. The syntax for the netstat command is netstat [options]. Some common options include 7) Ss : The ss (socket statistics) tool is a CLI command used to show network statistics. The ss command is a simpler and faster version of the now obsolete netstat command. Together with the ip command, ss is essential for gathering network information and troubleshooting network issues
+8) Dig : The dig command in Linux, or Domain Information Groper, is a tool that gathers information about the Domain Name System (DNS) 
+9) Nslookup :The nslookup command in Linux is a command-line tool that queries domain name servers (DNS) for information about a domain or IP address
+10) Route : The route command in Linux is used to view and modify the routing table, which determines the path that network traffic takes to reach its destination.
+11) Host : host command in Linux system is used for DNS (Domain Name System) lookup operations 
+12) Arp : Address Resolution Protocol (ARP) is a communication protocol that translates a machine's IP address to its physical address, or Media Access Control (MAC) address 
+13) Hostname : A hostname in Linux is a unique name that identifies a device or computer on a network 
+14) Curl and wget : CURL uploads and downloads resources, whereas Wget primarily downloads files. Wget is a simple executable on the system, whereas cURL is a more complete application with a supporting library. Wget only uploads using a limited HTTP
+POST feature, while cURL is a better choice for pushing files to remote locations 
+15) Mtr : MTR, or My Traceroute, is a network diagnostic tool in Linux that combines the functions of the ping and traceroute commands
+16) Whois : The whois command in Linux is used to retrieve information about domain names, IP addresses, and other internet resources. 
+17) Tcpdump : Tcpdump is a command-line tool in Linux that analyzes network packets and is used to capture and filter traffic
