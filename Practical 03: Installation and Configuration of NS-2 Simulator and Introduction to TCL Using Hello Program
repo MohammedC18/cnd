@@ -21,3 +21,79 @@ ns hello.tcl
 
 Output:
 Hello, NS-2 World!
+
+To simulate a basic wired network using NS2 and analyze the packet flow using NAM (Network Animator).
+
+Step 1: Install NS2 and NAM
+
+sudo apt update
+sudo apt install ns2 nam
+Step 2: Create TCL Script for Wired Network
+Create a new file:
+
+nano wired_network.tcl
+Write basic TCL script inside:
+
+# wired_network.tcl
+# Create a new simulator object
+set ns [new Simulator]
+
+# Open NAM trace file
+set nf [open out.nam w]
+$ns namtrace-all $nf
+
+# Define a 'finish' procedure
+proc finish {} {
+	global ns nf
+	$ns flush-trace
+	close $nf
+	exec nam out.nam &
+	exit 0
+}
+
+# Create two nodes
+set n0 [$ns node]
+set n1 [$ns node]
+
+# Establish a duplex link between nodes
+$ns duplex-link $n0 $n1 1Kb 10ms DropTail
+
+# Create and attach TCP agent to node 0
+set tcp0 [new Agent/TCP]
+$ns attach-agent $n0 $tcp0
+
+# Create and attach TCP Sink agent to node 1
+set sink0 [new Agent/TCPSink]
+$ns attach-agent $n1 $sink0
+
+# Connect TCP agent to TCP Sink
+$ns connect $tcp0 $sink0
+
+# Create a CBR traffic source and attach it to TCP
+set cbr0 [new Application/Traffic/CBR]
+$cbr0 set packetSize_ 500
+$cbr0 set interval_ 0.005
+$cbr0 attach-agent $tcp0
+
+# Create an FTP traffic source and attach it to TCP
+set ftp0 [new Application/FTP]
+$ftp0 attach-agent $tcp0
+
+# Schedule events
+$ns at 0.5 "$ftp0 start"
+$ns at 4.5 "$ftp0 stop"
+$ns at 5.0 "finish"
+
+# Run simulation
+$ns run
+
+
+Step 3: Run the TCL Script
+
+ns wired_network.tcl
+This generates out.nam file and opens NAM.
+
+Step 4: Analyze Packet Flow in NAM
+See the nodes (n0, n1) and packet movements.
+
+Play, Pause, Step Forward to observe packet flow.
