@@ -38,4 +38,4 @@ sudo apt install net-tools traceroute dnsutils mtr whois tcpdump curl wget
 POST feature, while cURL is a better choice for pushing files to remote locations 
 15) Mtr : MTR, or My Traceroute, is a network diagnostic tool in Linux that combines the functions of the ping and traceroute commands
 16) Whois : The whois command in Linux is used to retrieve information about domain names, IP addresses, and other internet resources. 
-17) Tcpdump : Tcpdump is a command-line tool in Linux that analyzes network packets and is used to capture and filter traffic
+17) Tcpdump : Tcpdump is a command-line tool in Linux that analyzes network packets and is used to capture and filter traffic.
