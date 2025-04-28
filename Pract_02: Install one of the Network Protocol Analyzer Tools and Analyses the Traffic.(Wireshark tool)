@@ -1,0 +1,44 @@
+Step 1: Install Wireshark
+
+sudo apt update
+sudo apt install wireshark
+sudo usermod -aG wireshark $USER
+
+Restart terminal after adding user.
+
+Step 2: Open Wireshark
+Open Wireshark from GUI.
+
+Select your network interface.
+
+Check "Promiscuous Mode" ON.
+
+Step 3: Start Capturing
+Click "Start Capture" (blue shark fin button).
+
+Step 4: Generate Traffic
+Open a website (for HTTP/TCP traffic).
+
+Use ping google.com in Terminal (for ICMP traffic).
+
+Step 5: Apply Filters
+For ICMP packets:
+icmp
+For TCP packets:
+tcp
+For HTTP packets:
+http
+Step 6: Analyze Packets
+Check Source IP, Destination IP, Protocol, Packet Info.ts.
+Save Captures:
+
+Go to File → Save → Enter file name → Save as .pcap file.
+
+Open Captured File:
+
+To analyze saved files, go to File → Open → Select .pcap file.
+
+Stop Capture:
+
+Stop packet capturing by pressing CTRL+E or selecting Stop from the toolbar.
+
