@@ -1,0 +1,87 @@
+Step 1: Create TCP Server Program
+ Open your terminal and create a new Python file:
+ 
+ nano server.py
+ 
+ Copy and paste this server code:
+ 
+ import socket
+ 
+ def start_tcp_server():
+     host = '127.0.0.1'  # Localhost
+     port = 12345        # Port to listen on
+ 
+     # Create a socket object
+     server_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+ 
+     # Bind the socket to the address and port
+     server_socket.bind((host, port))
+     print(f"Server started at {host}:{port}")
+ 
+     # Listen for incoming connections
+     server_socket.listen(1)
+     print("Waiting for a connection...")
+ 
+     # Accept a client connection
+     conn, addr = server_socket.accept()
+     print(f"Connection from {addr}")
+ 
+     # Receive and send messages
+     while True:
+         data = conn.recv(1024).decode('utf-8')
+         if not data or data.lower() == 'exit':
+             print("Closing connection.")
+             break
+         print(f"Received from client: {data}")
+ 
+         # Echo the message back to the client
+         response = f"Server received: {data}"
+         conn.send(response.encode('utf-8'))
+ 
+     conn.close()
+ 
+ # Start the server
+ start_tcp_server()
+ 
+ Step 2: Create TCP Client Program
+ Open your terminal and create another Python file:
+ nano client.py
+ 
+ Copy and paste this client code:
+ 
+ import socket
+ 
+ def start_tcp_client():
+     host = '127.0.0.1'  # Server's IP address (localhost)
+     port = 12345        # Server's port
+ 
+     # Create a socket object
+     client_socket = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+ 
+     # Connect to the server
+     client_socket.connect((host, port))
+     print(f"Connected to server at {host}:{port}")
+ 
+     # Send messages to the server
+     while True:
+         message = input("Enter message (type 'exit' to close): ")
+         client_socket.send(message.encode('utf-8'))
+ 
+         if message.lower() == 'exit':
+             print("Closing connection.")
+             break
+ 
+         # Receive the server's response
+         response = client_socket.recv(1024).decode('utf-8')
+         print(f"Server response: {response}")
+ 
+     client_socket.close()
+ 
+ # Start the client
+ start_tcp_client()
+ 
+ Step 3: Run the Programs
+ First, run the server:
+ python3 server.py
+ Second, in a new terminal, run the client:
+ python3 client.py
