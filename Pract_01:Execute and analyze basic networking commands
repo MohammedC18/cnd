@@ -17,6 +17,10 @@ mtr google.com    # Live network path check
 whois google.com  # Get domain ownership info
 tcpdump -i any    # Start packet capture (needs sudo)
 
+sudo apt update
+sudo apt install net-tools traceroute dnsutils mtr whois tcpdump curl wget
+
+
 1) ifconfig : The ifconfig command in Linux is a command-line tool that configures, controls, and queries network interface parameters 
 2) Ip : In Linux, the ip command is a tool for network management that allows users to configure and manage network interfaces, IP addresses, and routing tables
 3) Traceroute : The traceroute command in Linux is a tool that shows the path a packet takes from your computer to a destination on the internet 
