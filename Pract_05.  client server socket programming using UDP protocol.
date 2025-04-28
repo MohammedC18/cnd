@@ -1,0 +1,63 @@
+Step 1: Create UDP Server Program
+Open terminal → Create server file:
+
+nano udp_server.py
+
+Paste the following server code:
+
+import socket
+
+# Define the server address and port
+server_ip = "127.0.0.1"  # Localhost
+server_port = 12345
+
+# Create a UDP socket
+server_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+# Bind the socket to the address and port
+server_socket.bind((server_ip, server_port))
+
+print(f"UDP Server listening on {server_ip}:{server_port}")
+
+while True:
+    # Receive data from client
+    data, client_address = server_socket.recvfrom(1024)  # Buffer size = 1024 bytes
+    print(f"Received from {client_address}: {data.decode()}")
+
+    # Send a response back to client
+    server_socket.sendto(b"Message received", client_address)
+
+Step 2: Create UDP Client Program
+Open terminal → Create client file:
+
+nano udp_client.py
+
+Paste the following client code:
+
+import socket
+
+# Define the server address and port
+server_ip = "127.0.0.1"  # Localhost
+server_port = 12345
+
+# Create a UDP socket
+client_socket = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+
+# Send data to the server
+message = "Hello, UDP Server!"
+client_socket.sendto(message.encode(), (server_ip, server_port))
+
+# Receive response from the server
+data, server_address = client_socket.recvfrom(1024)
+print(f"Server Response: {data.decode()}")
+
+# Close the socket
+client_socket.close()
+
+Step 3: Run the Programs
+
+First, run the UDP server:
+python3 udp_server.py
+
+Then, in a new terminal, run the UDP client:
+python3 udp_client.py
