@@ -1,0 +1,208 @@
+Step 1: Set Up NS2
+
+sudo apt-get install ns2
+
+Step 2: Write a TCL Script for Bus Topology
+Open a terminal and create a file for the Bus topology:
+
+nano bus_topology.tcl
+
+Add the following TCL code:
+
+# Bus Topology
+
+set ns [new Simulator]
+
+# Create nodes
+set n0 [$ns node]
+set n1 [$ns node]
+set n2 [$ns node]
+set n3 [$ns node]
+
+# Create the bus link (shared medium)
+$ns duplex-link $n0 $n1 1Mb 10ms DropTail
+$ns duplex-link $n1 $n2 1Mb 10ms DropTail
+$ns duplex-link $n2 $n3 1Mb 10ms DropTail
+
+# Trace file for NAM
+set nf [open bus_topology.nam w]
+$ns namtrace-all $nf
+
+# Create finish procedure
+proc finish {} {
+    global ns nf
+    $ns flush-trace
+    close $nf
+    exec nam bus_topology.nam &
+    exit 0
+}
+
+# Run simulation
+$ns at 1.0 "finish"
+$ns run
+
+Save the file and exit.
+Run the simulation:
+
+ns bus_topology.tcl
+
+View the topology using NAM.
+
+Step 3: Write a TCL Script for Ring Topology
+Open a terminal and create a file for the Ring topology:
+
+nano ring_topology.tcl
+
+Add the following TCL code:
+
+# Ring Topology
+
+set ns [new Simulator]
+
+# Create nodes
+set n0 [$ns node]
+set n1 [$ns node]
+set n2 [$ns node]
+set n3 [$ns node]
+
+# Create the ring links
+$ns duplex-link $n0 $n1 1Mb 10ms DropTail
+$ns duplex-link $n1 $n2 1Mb 10ms DropTail
+$ns duplex-link $n2 $n3 1Mb 10ms DropTail
+$ns duplex-link $n3 $n0 1Mb 10ms DropTail
+
+# Trace file for NAM
+set nf [open ring_topology.nam w]
+$ns namtrace-all $nf
+
+# Create finish procedure
+proc finish {} {
+    global ns nf
+    $ns flush-trace
+    close $nf
+    exec nam ring_topology.nam &
+    exit 0
+}
+
+# Run simulation
+$ns at 1.0 "finish"
+$ns run
+
+Save the file and exit.
+
+Run the simulation:
+
+ns ring_topology.tcl
+
+View the topology using NAM.
+
+Step 4: Write a TCL Script for Mesh Topology
+
+Open a terminal and create a file for the Mesh topology:
+
+nano mesh_topology.tcl
+
+Add the following TCL code:
+
+# Mesh Topology
+
+set ns [new Simulator]
+
+# Create nodes
+set n0 [$ns node]
+set n1 [$ns node]
+set n2 [$ns node]
+set n3 [$ns node]
+set n4 [$ns node]
+
+# Create the mesh links
+$ns duplex-link $n0 $n1 1Mb 10ms DropTail
+$ns duplex-link $n1 $n2 1Mb 10ms DropTail
+$ns duplex-link $n2 $n3 1Mb 10ms DropTail
+$ns duplex-link $n3 $n4 1Mb 10ms DropTail
+$ns duplex-link $n0 $n2 1Mb 10ms DropTail
+$ns duplex-link $n1 $n3 1Mb 10ms DropTail
+$ns duplex-link $n2 $n4 1Mb 10ms DropTail
+
+# Trace file for NAM
+set nf [open mesh_topology.nam w]
+$ns namtrace-all $nf
+
+# Create finish procedure
+proc finish {} {
+    global ns nf
+    $ns flush-trace
+    close $nf
+    exec nam mesh_topology.nam &
+    exit 0
+}
+
+# Run simulation
+$ns at 1.0 "finish"
+$ns run
+Save the file and exit.
+
+Run the simulation:
+
+ns mesh_topology.tcl
+
+View the topology using NAM.
+
+Step 5: Write a TCL Script for Star Topology
+Open a terminal and create a file for the Star topology:
+
+nano star_topology.tcl
+
+Add the following TCL code:
+
+# Star Topology
+
+set ns [new Simulator]
+
+# Create nodes
+set n0 [$ns node]  # Central node (Hub)
+set n1 [$ns node]
+set n2 [$ns node]
+set n3 [$ns node]
+set n4 [$ns node]
+
+# Create star links
+$ns duplex-link $n0 $n1 1Mb 10ms DropTail
+$ns duplex-link $n0 $n2 1Mb 10ms DropTail
+$ns duplex-link $n0 $n3 1Mb 10ms DropTail
+$ns duplex-link $n0 $n4 1Mb 10ms DropTail
+
+# Trace file for NAM
+set nf [open star_topology.nam w]
+$ns namtrace-all $nf
+
+# Create finish procedure
+proc finish {} {
+    global ns nf
+    $ns flush-trace
+    close $nf
+    exec nam star_topology.nam &
+    exit 0
+}
+
+# Run simulation
+$ns at 1.0 "finish"
+$ns run
+
+Save the file and exit.
+
+Run the simulation:
+
+ns star_topology.tcl
+
+View the topology using NAM.
+
+Step 6: View Topologies Using NAM
+After running each TCL script (bus_topology.tcl, ring_topology.tcl, mesh_topology.tcl, or star_topology.tcl), the trace file (*.nam) will be generated.
+
+To view the simulation, use NAM:
+
+nam bus_topology.nam
+nam ring_topology.nam
+nam mesh_topology.nam
+nam star_topology.nam
