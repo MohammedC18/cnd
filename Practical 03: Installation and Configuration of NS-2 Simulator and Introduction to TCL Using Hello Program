@@ -1,0 +1,23 @@
+Step 1: Install NS-2
+
+sudo apt update
+sudo apt install ns2
+Step 2: Check NS-2 Installation
+
+ns
+It will open the % prompt (means NS-2 is installed).
+
+Step 3: Write "Hello World" TCL Program
+Create a file:
+nano hello.tcl
+Write this inside:
+# hello.tcl
+puts "Hello, NS-2 World!"
+Save the file (CTRL+O, then Enter, then CTRL+X).
+
+Step 4: Run the TCL Program
+
+ns hello.tcl
+
+Output:
+Hello, NS-2 World!
