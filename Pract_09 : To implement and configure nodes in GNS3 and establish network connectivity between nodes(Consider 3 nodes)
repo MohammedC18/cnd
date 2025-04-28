@@ -1,0 +1,92 @@
+1. Launch GNS3:
+Open GNS3 application on your system.
+
+2. Create a New Project:
+Go to File → New Project.
+
+Name your project (e.g., Three_Node_Network) and click OK.
+
+3. Add Devices:
+Virtual PCs (VPCS): These are used to represent the end devices.
+
+From the Devices Toolbar (left panel), drag and drop 3 Virtual PCs (VPCS) onto the workspace.
+
+Switches: You need at least 2 switches to interconnect the PCs.
+
+From the Devices Toolbar, drag and drop 2 switches onto the workspace.
+
+4. Connect the Devices:
+
+Click on the "Add a Link" button (represented by the cable icon in the toolbar).
+
+Click on each device to establish connections:
+
+Connect PC1 to Switch1.
+
+Connect PC2 to Switch1.
+
+Connect PC3 to Switch2.
+
+Connect Switch1 to Switch2.
+
+5. Configure IP Addresses for Each PC:
+Right-click on PC1 and select Console to open the command window.
+
+Type the following command to assign an IP address to PC1:
+ip 192.168.1.1/24
+This assigns 192.168.1.1 with subnet 255.255.255.0 to PC1.
+
+Right-click on PC2 and select Console to open the command window.
+
+Type the following command to assign an IP address to PC2:
+
+ip 192.168.1.2/24
+
+This assigns 192.168.1.2 with subnet 255.255.255.0 to PC2.
+
+Right-click on PC3 and select Console to open the command window.
+
+Type the following command to assign an IP address to PC3:
+
+ip 192.168.1.3/24
+This assigns 192.168.1.3 with subnet 255.255.255.0 to PC3.
+
+6. Test Network Connectivity (Ping Test):
+Test between PCs on the same subnet:
+
+PC1 → PC2:
+
+Open PC1's console and type:
+
+ping 192.168.1.2
+PC1 should be able to ping PC2 successfully.
+
+PC2 → PC1:
+
+Open PC2's console and type:
+
+ping 192.168.1.1
+PC2 should be able to ping PC1 successfully.
+
+Test between PCs connected via different switches:
+
+PC1 → PC3:
+
+Open PC1's console and type:
+
+ping 192.168.1.3
+PC1 should be able to ping PC3 successfully (because the switches are connected).
+
+PC3 → PC1:
+
+Open PC3's console and type:
+
+ping 192.168.1.1
+PC3 should be able to ping PC1 successfully.
+
+7. Save the Project:
+Once the network connectivity is verified, save your project.
+
+Go to File → Save Project.
+
+Give it a name and save the configuration.
