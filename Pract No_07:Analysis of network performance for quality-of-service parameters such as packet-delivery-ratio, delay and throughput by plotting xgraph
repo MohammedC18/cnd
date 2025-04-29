@@ -1,0 +1,111 @@
+Create this file:
+Name it: bus_topology.tcl
+
+Paste this code:
+
+# Make a simulator
+set ns [new Simulator]
+
+# Make files to store data
+set nf [open bus_topology.nam w]
+$ns namtrace-all $nf
+set tf [open bus_topology.tr w]
+$ns trace-all $tf
+
+# Make 2 nodes (like 2 computers)
+set n0 [$ns node]
+set n1 [$ns node]
+
+# Connect them with a wire (bus)
+$ns duplex-link $n0 $n1 1Mb 10ms DropTail
+
+# Limit how many packets can wait
+$ns queue-limit $n0 $n1 50
+
+# Set up TCP connection
+set tcp [new Agent/TCP]
+$ns attach-agent $n0 $tcp
+set sink [new Agent/TCPSink]
+$ns attach-agent $n1 $sink
+$ns connect $tcp $sink
+
+# Send traffic using CBR (constant speed)
+set cbr [new Application/Traffic/CBR]
+$cbr set packetSize_ 512
+$cbr set rate_ 250Kb
+$cbr attach-agent $tcp
+
+# Start sending at 0.1 second, stop at 99.9
+$ns at 0.1 "$cbr start"
+$ns at 99.9 "$cbr stop"
+
+# Finish the simulation
+proc finish {} {
+    global ns nf tf
+    $ns flush-trace
+    close $nf
+    close $tf
+    exec nam bus_topology.nam &
+    exec xgraph throughput.xg -geometry 800x400 &
+    exit 0
+}
+
+$ns at 100.0 "finish"
+$ns run
+ Run the Simulation
+Open your terminal and type:
+
+bash
+Copy
+Edit
+ns bus_topology.tcl
+This runs the network and makes files:
+
+bus_topology.nam – for animation
+
+bus_topology.tr – for results
+
+Make AWK Script to Measure Throughput
+Create a new file:
+Name it: throughput.awk
+
+Paste this code:
+
+BEGIN {
+    time_window = 1;
+    current_time = 0;
+    bytes = 0;
+}
+{
+    event = $1;
+    time = $2;
+    node_id = $4;
+
+    if (event == "r" && node_id == "1") {
+        pkt_size = $6;
+        if (time < current_time + time_window) {
+            bytes += pkt_size;
+        } else {
+            throughput = (bytes * 8) / 1000.0;
+            printf("%0.2f %0.2f\n", current_time, throughput) >> "throughput.xg";
+            current_time += time_window;
+            bytes = pkt_size;
+        }
+    }
+}
+END {
+    if (bytes > 0) {
+        throughput = (bytes * 8) / 1000.0;
+        printf("%0.2f %0.2f\n", current_time, throughput) >> "throughput.xg";
+    }
+}
+ Run the AWK Script
+After the simulation is done, in the terminal type:
+
+awk -f throughput.awk bus_topology.tr
+
+It will make a file called throughput.xg
+
+Plot the Graph
+Now draw the graph:
+xgraph throughput.xg -geometry 800x400
